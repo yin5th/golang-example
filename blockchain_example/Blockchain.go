@@ -94,6 +94,7 @@ func main() {
 		fmt.Println("1 添加区块")
 		fmt.Println("2 查看所有区块")
 		fmt.Println("其他任意键退出")
+		//接收键盘输入
 		fmt.Scanf("%s", &cmd)
 		switch cmd {
 		case "1":
