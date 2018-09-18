@@ -1,8 +1,10 @@
 package routers
 
 import (
+	"dothis.top/example/gin_blog/middleware/jwt"
 	"dothis.top/example/gin_blog/pkg/setting"
-	"dothis.top/example/gin_blog/routers/v1"
+	"dothis.top/example/gin_blog/routers/api"
+	"dothis.top/example/gin_blog/routers/api/v1"
 	"github.com/gin-gonic/gin"
 )
 
@@ -11,8 +13,14 @@ func InitRouter() *gin.Engine {
 	r.Use(gin.Logger())
 	r.Use(gin.Recovery())
 
-	gin.SetMode(setting.RunMode) //模式
+	//设置模式
+	gin.SetMode(setting.RunMode)
 
+	//获取token
+	r.POST("/auth", api.GetAuth)
+
+	//引入jwt中间件
+	r.Use(jwt.JWT())
 	apiv1 := r.Group("/api/v1")
 	{
 		/*****标签*****/
