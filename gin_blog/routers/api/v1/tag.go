@@ -1,6 +1,7 @@
 package v1
 
 import (
+	_ "dothis.top/example/gin_blog/docs"
 	"dothis.top/example/gin_blog/models"
 	"dothis.top/example/gin_blog/pkg/e"
 	"dothis.top/example/gin_blog/pkg/logging"
@@ -39,7 +40,13 @@ func GetTags(c *gin.Context) {
 	})
 }
 
-//新增文章标签
+// @Summary 新增文章标签
+// @Produce json
+// @Param name PostForm string true "Name"
+// @Param state PostForm int false "State"
+// @Param created_by PostForm int false "CreatedBy"
+// @Success 200 {string} json "{"code":200, "data":{}, "message":"ok""
+// @Router /api/v1/tags [post]
 func AddTag(c *gin.Context) {
 	name := c.PostForm("name")
 	state := com.StrTo(c.DefaultPostForm("state", "0")).MustInt()
@@ -73,7 +80,13 @@ func AddTag(c *gin.Context) {
 	})
 }
 
-//修改文章标签
+// @Summary 修改文章标签
+// @Produce json
+// @Param id path int true "ID"
+// @Param name formData string true "Name"
+// @Param modified_by formData string true "modified_by"
+// @Success 200 {string} json "{"code":200,"data":{},"message":"ok"}"
+// @Router /api/v1/tags/{id} [put]
 func EditTag(c *gin.Context) {
 	id := com.StrTo(c.Param("id")).MustInt()
 	modifiedBy := c.PostForm("modified_by")

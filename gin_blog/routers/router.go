@@ -6,6 +6,8 @@ import (
 	"dothis.top/example/gin_blog/routers/api"
 	"dothis.top/example/gin_blog/routers/api/v1"
 	"github.com/gin-gonic/gin"
+	"github.com/swaggo/gin-swagger"
+	"github.com/swaggo/gin-swagger/swaggerFiles"
 )
 
 func InitRouter() *gin.Engine {
@@ -18,6 +20,8 @@ func InitRouter() *gin.Engine {
 
 	//获取token
 	r.POST("/auth", api.GetAuth)
+	//api文档
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	//引入jwt中间件
 	r.Use(jwt.JWT())
